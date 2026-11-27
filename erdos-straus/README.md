@@ -54,3 +54,19 @@ t/(p·x) раскладывается в 1/y + 1/z. Раскладываем ч�
 2. Оценить, какая доля простых не покрывается при t ≤ T. Если она убывает к нулю, это
    связано с известными результатами «почти все n» (Вон, Элсхольц–Тао).
 3. Формализовать критерий для t = 3 в Lean.
+
+## Lean-формализация (готово)
+
+Файл [`lean/ErdosStrausT3.lean`](lean/ErdosStrausT3.lean): полное доказательство критерия для t = 3
+в обе стороны, без `sorry`. Проверено на Lean 4.35.0 с Mathlib `56a0058`:
+
+```
+'ErdosStrausT3.criterion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ErdosStrausT3.criterion_hard' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+- `criterion`: для простого p > 3, p ≡ 1 (mod 4):
+  (∃ y z > 0, 4/p = 1/q + 1/y + 1/z) ⟺ (∃ простое r ∣ p·q, r ≡ 2 (mod 3)), где q = (p+3)/4.
+- `criterion_hard`: при p ≡ 1 (mod 3) (все трудные классы) делитель r должен делить q.
+
+Проверка: `lake env lean lean/ErdosStrausT3.lean` в любом проекте с Mathlib.
